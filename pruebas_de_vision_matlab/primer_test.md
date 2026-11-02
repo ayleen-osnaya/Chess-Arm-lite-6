@@ -72,9 +72,39 @@ Entonces, size(Id,3) obtiene el número de canales de color. Si es igual a 1, si
 - 3: Repetir tres veces la tercera dimensión.
 
 ```Matlab
-
+% Color del fondo = mediana de los píxeles del borde de la imagen
+    bordes = [squeeze(Id(1,:,:)); squeeze(Id(end,:,:)); ...
+              squeeze(Id(:,1,:)); squeeze(Id(:,end,:))];
+    fondo = median(bordes, 1);
 ```
+Suponemos que los bordes de la imagen contienen principalmente el fondo. Por eso tomamos los píxeles que están en los cuatro extremos de la imagen.
 
+|Id(1,:,:)|	Primera fila (borde superior). |
+|Id(end,:,:)	Última fila (borde inferior). |
+|Id(:,1,:)	Primera columna (borde izquierdo). |
+|Id(:,end,:)	Última columna (borde derecho). |
+
+
+
+```Matlab
+% Color del fondo = mediana de los píxeles del borde de la imagen
+    bordes = [squeeze(Id(1,:,:)); squeeze(Id(end,:,:)); ...
+              squeeze(Id(:,1,:)); squeeze(Id(:,end,:))];
+    fondo = median(bordes, 1);
+    
+    % Distancia de cada píxel al color del fondo (en RGB)
+    dif = sqrt(sum((Id - reshape(fondo, 1, 1, 3)).^2, 3));
+    
+    % Todo lo que se aleja del fondo es objeto
+    BW = dif > 0.15;
+
+    % Si el fondo es blanco y las figuras oscuras, queda al revés.
+    % Truco: si la mayoría de los píxeles del borde son blancos, invertimos.
+    borde = [BW(1,:), BW(end,:), BW(:,1)', BW(:,end)'];
+    if mean(borde) > 0.5
+        BW = ~BW;
+    end
+```
 
 ## Anexos
 
