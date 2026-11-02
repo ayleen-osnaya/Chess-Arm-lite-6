@@ -29,7 +29,7 @@ El código completo se encuentra en Anexos de este reporte
 function detectar_formas(nombreImagen)
 
     if nargin < 1
-        nombreImagen = 'formas3.png';
+        nombreImagen = 'formas.png';
     end
 
     %% 1) LEER LA IMAGEN
@@ -46,7 +46,11 @@ function detectar_formas(nombreImagen)
 
 <span style="color: red;">**(nombreImagen)**:</span> es el parametro que requiere nuestra función el cual debe ser la imagen que vamos a procesar
 
-<span style="color: red;">**nargin**:</span> significa Number of Input Arguments
+<span style="color: red;">**nargin**:</span> significa Number of Input Arguments, esta parte nos ayuda ya que si manualmente no ponemos una imagen que queramos (es decir pasamos la funcion con parametro 0) automaticamente nos llama a la imagen png llamada **formas.png**.
+
+<span style="color: red;">**imread**:</span> es lo que lee nuestra imagen elegida.
+
+
 
 
 ## Anexos
