@@ -50,7 +50,30 @@ function detectar_formas(nombreImagen)
 
 <span style="color: red;">**imread**:</span> es lo que lee nuestra imagen elegida.
 
+<span style="color: red;">**I**:</span> es la imagen original.
 
+<span style="color: red;">**im2double()**:</span> convierte los valores de los píxeles al tipo de dato double. Si la imagen original tiene valores entre 0 y 255, los convierte a valores entre 0 y 1.
+
+<span style="color: red;">**if size(Id,3) == 1**:</span> Comprobar si la imagen es en escala de grises. Aquí utilizamos size() para conocer las dimensiones de la imagen.
+
+Una imagen puede tener tres dimensiones:
+- Dimensión 1: Alto (filas).
+- Dimensión 2: Ancho (columnas).
+- Dimensión 3: Canales de color.
+
+Entonces, size(Id,3) obtiene el número de canales de color. Si es igual a 1, significa que la imagen está en escala de grises.
+
+
+<span style="color: red;">**Id = repmat(Id, [1 1 3])**:</span> convierte la imagen en un formato de 3 canales ya que una imagen RGB tiene 3 canales pero una de grises no, lo cual se ocupara para funciones en el resto del programa.
+
+¿Qué significa [1 1 3]?
+- 1: No repetir las filas.
+- 1: No repetir las columnas.
+- 3: Repetir tres veces la tercera dimensión.
+
+```Matlab
+
+```
 
 
 ## Anexos
