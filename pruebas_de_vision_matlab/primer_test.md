@@ -5,8 +5,9 @@
 
 la función **DETECTAR_FORMAS**  Detecta cuadrados, círculos, pentágonos, en una imagen.
 
-Uso:   **detectar_formas('formas.png')**
-**'formas.png'** es una imagen que debe estar guardada en la misma direccion que tu código
+Uso:   **detectar_formas('formas.png')**.
+
+**'formas.png'** es una imagen que debe estar guardada en la misma direccion que tu código.
 
 Requiere: **Image Processing Toolbox**
 
