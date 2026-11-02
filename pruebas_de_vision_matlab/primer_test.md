@@ -25,10 +25,29 @@ Pipeline:
 ## Explicación del código 
 El código completo se encuentra en Anexos de este reporte
 
-
 ```Matlab
-codigo
+function detectar_formas(nombreImagen)
+
+    if nargin < 1
+        nombreImagen = 'formas3.png';
+    end
+
+    %% 1) LEER LA IMAGEN
+    I = imread(nombreImagen);
+
+    %% 2) y 3) SEGMENTAR POR DIFERENCIA DE COLOR CON EL FONDO
+    Id = im2double(I);
+    if size(Id,3) == 1
+        Id = repmat(Id, [1 1 3]);
+    end
 ```
+
+<span style="color: red;">**detectar_formas**:</span> es el nombre de nuestra función creada
+
+<span style="color: red;">**(nombreImagen)**:</span> es el parametro que requiere nuestra función el cual debe ser la imagen que vamos a procesar
+
+<span style="color: red;">**nargin**:</span> significa Number of Input Arguments
+
 
 ## Anexos
 
