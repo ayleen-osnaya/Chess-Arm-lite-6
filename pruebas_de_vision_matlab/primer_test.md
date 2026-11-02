@@ -22,6 +22,9 @@ Pipeline:
  7) Clasificar y dibujar
 
 
+# Explicación del código 
+El código completo se encuentra en Anexos de este reporte
+
 
 ```py
 codigo
