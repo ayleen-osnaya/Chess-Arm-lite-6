@@ -8,6 +8,7 @@ El principal problema de la prueba anterior era que la segmentación se realizab
 
 Por esta razón, se modificó el método de segmentación para utilizar la saturación de los colores, permitiendo ignorar las casillas del tablero y detectar principalmente las figuras coloreadas.
 
+El código completo se encuentra en [Anexos](#Anexos) de este reporte 
 
 ### 1. Nuevo método de segmentación: HSV
 

@@ -1,4 +1,4 @@
-# Primera Pruebas de vision computacional en matlab
+# Primera Prueba de vision computacional en MATLAB
 **Detección de figuras sin tomar en cuenta el color**
 
 ## Descripcion y requisitos
