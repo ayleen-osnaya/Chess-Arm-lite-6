@@ -306,7 +306,7 @@ Aqui veremos las imagenes originales y su resutado despues de ser procesadas con
   </tr>
   <tr>
     <td><img src="images/formas.png" width="400" height="400" style="object-fit: contain;"></td>
-    <td><img src="images/formas_procesada.png" width="400" height="300" style="object-fit: contain;"></td>
+    <td><img src="images/formas_procesada.png" width="400" height="400" style="object-fit: contain;"></td>
   </tr>
 </table>
 
@@ -317,7 +317,7 @@ Aqui veremos las imagenes originales y su resutado despues de ser procesadas con
   </tr>
   <tr>
     <td><img src="images/formas2.png" width="400" height="400" style="object-fit: contain;"></td>
-    <td><img src="images/formas2_procesada.png" width="400" height="300" style="object-fit: contain;"></td>
+    <td><img src="images/formas2_procesada.png" width="400" height="400" style="object-fit: contain;"></td>
   </tr>
 </table>
 
@@ -328,7 +328,7 @@ Aqui veremos las imagenes originales y su resutado despues de ser procesadas con
   </tr>
   <tr>
     <td><img src="images/formas3.png" width="400" height="400" style="object-fit: contain;"></td>
-    <td><img src="images/formas3_procesada.png" width="400" height="300" style="object-fit: contain;"></td>
+    <td><img src="images/formas3_procesada.png" width="400" height="400" style="object-fit: contain;"></td>
   </tr>
 </table>
 
