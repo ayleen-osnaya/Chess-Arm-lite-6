@@ -42,29 +42,29 @@ function detectar_formas(nombreImagen)
     end
 ```
 
-<span style="color: red;">**detectar_formas**:</span> es el nombre de nuestra función creada
+`detectar_formas` es el nombre de nuestra función creada
 
-<span style="color: red;">**(nombreImagen)**:</span> es el parametro que requiere nuestra función el cual debe ser la imagen que vamos a procesar
+`(nombreImagen)`: es el parametro que requiere nuestra función el cual debe ser la imagen que vamos a procesar
 
-<span style="color: red;">**nargin**:</span> significa Number of Input Arguments, esta parte nos ayuda ya que si manualmente no ponemos una imagen que queramos (es decir pasamos la funcion con parametro 0) automaticamente nos llama a la imagen png llamada **formas.png**.
+`nargin`: significa Number of Input Arguments, esta parte nos ayuda ya que si manualmente no ponemos una imagen que queramos (es decir pasamos la funcion con parametro 0) automaticamente nos llama a la imagen png llamada **formas.png**.
 
-<span style="color: red;">**imread**:</span> es lo que lee nuestra imagen elegida.
+`imread`: es lo que lee nuestra imagen elegida.
 
-<span style="color: red;">**I**:</span> es la imagen original.
+`I`: es la imagen original.
 
-<span style="color: red;">**im2double()**:</span> convierte los valores de los píxeles al tipo de dato double. Si la imagen original tiene valores entre 0 y 255, los convierte a valores entre 0 y 1.
+`im2double()`: convierte los valores de los píxeles al tipo de dato double. Si la imagen original tiene valores entre 0 y 255, los convierte a valores entre 0 y 1.
 
-<span style="color: red;">**if size(Id,3) == 1**:</span> Comprobar si la imagen es en escala de grises. Aquí utilizamos size() para conocer las dimensiones de la imagen.
+`if size(Id,3) == 1`: Comprobar si la imagen es en escala de grises. Aquí utilizamos size() para conocer las dimensiones de la imagen.
 
 Una imagen puede tener tres dimensiones:
 - Dimensión 1: Alto (filas).
 - Dimensión 2: Ancho (columnas).
 - Dimensión 3: Canales de color.
 
-Entonces, size(Id,3) obtiene el número de canales de color. Si es igual a 1, significa que la imagen está en escala de grises.
+Entonces, `size(Id,3)` obtiene el número de canales de color. Si es igual a 1, significa que la imagen está en escala de grises.
 
 
-<span style="color: red;">**Id = repmat(Id, [1 1 3])**:</span> convierte la imagen en un formato de 3 canales ya que una imagen RGB tiene 3 canales pero una de grises no, lo cual se ocupara para funciones en el resto del programa.
+`Id = repmat(Id, [1 1 3])`: convierte la imagen en un formato de 3 canales ya que una imagen RGB tiene 3 canales pero una de grises no, lo cual se ocupara para funciones en el resto del programa.
 
 ¿Qué significa [1 1 3]?
 - 1: No repetir las filas.
@@ -79,25 +79,56 @@ Entonces, size(Id,3) obtiene el número de canales de color. Si es igual a 1, si
 ```
 Suponemos que los bordes de la imagen contienen principalmente el fondo. Por eso tomamos los píxeles que están en los cuatro extremos de la imagen.
 
-|Id(1,:,:)|	Primera fila (borde superior). |
-|Id(end,:,:)	Última fila (borde inferior). |
-|Id(:,1,:)	Primera columna (borde izquierdo). |
-|Id(:,end,:)	Última columna (borde derecho). |
+| Elemento | Descripción |
+| :--- | :--- |
+| `Id(1,:,:)` | Primera fila (borde superior). |
+| `Id(end,:,:)` | Última fila (borde inferior). |
+| `Id(:,1,:)` | Primera columna (borde izquierdo). |
+| `Id(:,end,:)` | Última columna (borde derecho). |
 
 
+`squeeze(Id(1,:,:))`: Elimina las dimensiones que tienen tamaño 1. Esto facilita juntar los cuatro bordes en una sola matriz
 
-```Matlab
-% Color del fondo = mediana de los píxeles del borde de la imagen
-    bordes = [squeeze(Id(1,:,:)); squeeze(Id(end,:,:)); ...
-              squeeze(Id(:,1,:)); squeeze(Id(:,end,:))];
-    fondo = median(bordes, 1);
-    
+Después unicamente calculamos la mediana para tener un color.
+
+```Matlab    
     % Distancia de cada píxel al color del fondo (en RGB)
     dif = sqrt(sum((Id - reshape(fondo, 1, 1, 3)).^2, 3));
-    
+```
+
+Esta línea calcula qué tan diferente es cada píxel respecto al color del fondo.
+
+Se basa en la distancia euclidiana en RGB. El vector del fondo tiene tres valores: [R G B]
+
+Con `reshape()` se reorganiza en una matriz de dimensiones:
+1 × 1 × 3
+
+Para poder compararlo con todos los píxeles de Id, que tiene dimensiones (Alto × Ancho × 3).
+
+MATLAB utiliza expansión implícita para realizar esa resta en todos los píxeles.
+
+`Id - reshape(fondo, 1, 1, 3)`
+Compara cada canal del píxel con el canal correspondiente del fondo. Eleva cada diferencia al cuadrado. Esto evita que las diferencias negativas se cancelen con las positivas. Suma las diferencias cuadráticas de R, G y B. Y el 3 indica que la suma se realiza sobre la tercera dimensión, es decir, los canales de color.
+
+`sqrt(...)` calcula la raiz cuadrada 
+
+Se obtiene la distancia euclidiana con:
+$$
+d = \sqrt{(R-R_f)^2 + (G-G_f)^2 + (B-B_f)^2}
+$$
+
+Donde:
+- \(R,G,B\): color del píxel.
+- \(R_f,G_f,B_f\): color estimado del fondo.
+- \(d\): distancia entre ambos colores.
+Cuanto mayor sea dif, más diferente es el píxel respecto al fondo
+
+```Matlab
     % Todo lo que se aleja del fondo es objeto
     BW = dif > 0.15;
+```
 
+```Matlab
     % Si el fondo es blanco y las figuras oscuras, queda al revés.
     % Truco: si la mayoría de los píxeles del borde son blancos, invertimos.
     borde = [BW(1,:), BW(end,:), BW(:,1)', BW(:,end)'];
