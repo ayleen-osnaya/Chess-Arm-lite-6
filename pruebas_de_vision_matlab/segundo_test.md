@@ -341,6 +341,7 @@ Aqui veremos las imagenes originales y su resutado despues de ser procesadas con
 
 ## 8. Conclusiones
 
+Lo que pudimos observar de esta nueva versión,es que imagenes limpias o hechas en computadora no tiene ningun error, detecta bien la forma y los colores sin errores, pero al pasarlo a un ambiente real, la situacion cambia, ya no detecta las figuras ni los colores. Lo que se planea hacer es usar deteccion de caracteristicas con base a bordes en imagen, sera muy util por que a la hora de agregar camara no se hara una gran modificación de código.
 
 ## Anexos
 
@@ -472,11 +473,6 @@ function nombre = nombre_color(rgb)
 end
 
 function [n, nAgudas] = contar_esquinas(P)
-% Simplifica el contorno (Douglas-Peucker) y cuenta:
-%   n        = todos los vertices de la aproximacion
-%   nAgudas  = vertices con angulo interior < 120 grados (esquinas reales)
-% Los puntos sobre una curva tienen angulos abiertos (~140 grados o mas),
-% asi que no cuentan como esquinas.
 
     perim = sum(vecnorm(diff([P; P(1,:)]), 2, 2));
     tol = 0.01 * perim;
