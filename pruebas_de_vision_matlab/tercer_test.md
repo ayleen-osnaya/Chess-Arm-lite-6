@@ -82,6 +82,49 @@ Aqui veremos las imagenes originales y su resutado despues de ser procesadas con
   </tr>
 </table>
 
+<table>
+  <tr>
+    <th>Imagen original</th>
+    <th>Imagen procesada</th>
+  </tr>
+  <tr>
+    <td><img src="images/formas10.png" width="400" height="400" style="object-fit: contain;"></td>
+    <td><img src="images/formas10_procesada3.png" width="400" height="400" style="object-fit: contain;"></td>
+  </tr>
+</table>
+
+<table>
+  <tr>
+    <th>Imagen original</th>
+    <th>Imagen procesada</th>
+  </tr>
+  <tr>
+    <td><img src="images/formas11.png" width="400" height="400" style="object-fit: contain;"></td>
+    <td><img src="images/formas11_procesada3.png" width="400" height="400" style="object-fit: contain;"></td>
+  </tr>
+</table>
+
+<table>
+  <tr>
+    <th>Imagen original</th>
+    <th>Imagen procesada</th>
+  </tr>
+  <tr>
+    <td><img src="images/formas12.png" width="400" height="400" style="object-fit: contain;"></td>
+    <td><img src="images/formas12_procesada3.png" width="400" height="400" style="object-fit: contain;"></td>
+  </tr>
+</table>
+
+<table>
+  <tr>
+    <th>Imagen original</th>
+    <th>Imagen procesada</th>
+  </tr>
+  <tr>
+    <td><img src="images/formas13.png" width="400" height="400" style="object-fit: contain;"></td>
+    <td><img src="images/formas13_procesada3.png" width="400" height="400" style="object-fit: contain;"></td>
+  </tr>
+</table>
 
 ## 6. Conclusiones
 
