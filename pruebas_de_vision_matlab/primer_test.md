@@ -286,7 +286,7 @@ Se cuentan los puntos importantes conservados en ambas curvas, restando los dos 
 
 ### `douglas_peucker(P, tol)`
 
-Implementa el algoritmo de simplificación recursiva:
+Implementa el algoritmo de simplificación recursiva.
 
 1. Conserva el primer y último punto del contorno.
 2. Calcula la distancia perpendicular de los demás puntos a la línea que une los extremos.
@@ -294,7 +294,45 @@ Implementa el algoritmo de simplificación recursiva:
 4. Si supera la tolerancia, divide la curva en dos y repite el procedimiento.
 5. Si no supera la tolerancia, descarta los puntos intermedios.
 
-De esta manera se eliminan pequeñas irregularidades del contorno y se conservan sus vértices principales, facilitando la identificación de las figuras geométricas.
+De esta manera se eliminan pequeñas irregularidades del contorno y se conservan sus vértices principales.
+
+## Resultados
+Aqui veremos las imagenes originales y su resutado despues de ser procesadas con una conclusion sobre las mejoras que deben realizarce. 
+
+<table>
+  <tr>
+    <th>Imagen original</th>
+    <th>Imagen procesada</th>
+  </tr>
+  <tr>
+    <td><img src="images/formas.png" width="100%"></td>
+    <td><img src="images/formas_procesada.png" width="100%"></td>
+  </tr>
+</table>
+
+<table>
+  <tr>
+    <th>Imagen original</th>
+    <th>Imagen procesada</th>
+  </tr>
+  <tr>
+    <td><img src="images/formas2.png" width="100%"></td>
+    <td><img src="images/formas2_procesada.png" width="100%"></td>
+  </tr>
+</table>
+
+<table>
+  <tr>
+    <th>Imagen original</th>
+    <th>Imagen procesada</th>
+  </tr>
+  <tr>
+    <td><img src="images/formas3.png" width="100%"></td>
+    <td><img src="images/formas3_procesada.png" width="100%"></td>
+  </tr>
+</table>
+
+
 
 ## Anexos
 
