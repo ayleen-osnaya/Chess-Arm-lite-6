@@ -127,15 +127,174 @@ Cuanto mayor sea dif, más diferente es el píxel respecto al fondo
     % Todo lo que se aleja del fondo es objeto
     BW = dif > 0.15;
 ```
+Aquí se establece un umbral (threshold).
+
+Se compara la distancia de cada píxel con 0.15.
+- Si dif > 0.15, el píxel se considera parte de un objeto.
+- Si dif <= 0.15, el píxel se considera parte del fondo.
+El resultado es una imagen binaria:
+- 1 (blanco): objeto.
+- 0 (negro): fondo.
+
+el lumbral 0.15 es elegido manualmente. Determina qué tanta diferencia de color debe existir para considerar que un píxel pertenece a una figura.
+
+Cosas que tendremos que conciderar en pruebas son que:
+
+- Umbral pequeño: detecta diferencias de color muy pequeñas, pero puede incluir ruido.
+- Umbral grande: ignora diferencias pequeñas, pero puede perder partes de los objetos.
 
 ```Matlab
     % Si el fondo es blanco y las figuras oscuras, queda al revés.
-    % Truco: si la mayoría de los píxeles del borde son blancos, invertimos.
     borde = [BW(1,:), BW(end,:), BW(:,1)', BW(:,end)'];
     if mean(borde) > 0.5
         BW = ~BW;
     end
 ```
+Este pedazo de código nos ayuda a que si el fondo es blanco y las figuras oscuras lo invierte
+
+```Matlab
+%% 4) LIMPIAR LA IMAGEN BINARIA
+    BW = imfill(BW, 'holes');          % rellena huecos dentro de las figuras
+    BW = bwareaopen(BW, 200);          % elimina manchas pequeñas (ruido)
+    BW = imopen(BW, strel('disk', 2)); % suaviza bordes con morfología
+```
+
+```matlab
+props = regionprops(BW, 'Area', 'Perimeter', 'Centroid', ...
+    'BoundingBox', 'Solidity', 'MajorAxisLength', 'MinorAxisLength', 'Extent');
+
+fronteras = bwboundaries(BW, 'noholes');
+```
+
+Se utiliza `regionprops()` para obtener las características geométricas de cada objeto detectado:
+
+- **Area:** cantidad de píxeles que ocupa la figura.
+- **Perimeter:** longitud de su contorno.
+- **Centroid:** coordenadas del centro de la figura.
+- **BoundingBox:** rectángulo que delimita el objeto.
+- **Solidity:** relación entre el área del objeto y el área de su envolvente convexa. Permite identificar qué tan compacta es una figura.
+- **MajorAxisLength:** longitud del eje mayor.
+- **MinorAxisLength:** longitud del eje menor.
+- **Extent:** proporción del área del objeto respecto al área de su `BoundingBox`. Permite conocer qué tanto espacio ocupa la figura dentro del rectángulo que la contiene.
+
+Por otro lado, `bwboundaries()` obtiene las coordenadas de los contornos de cada objeto, sin considerar agujeros internos (`noholes`).
+
+
+Se recorre cada región para analizar su contorno y determinar a qué figura geométrica pertenece.
+
+```matlab
+P = fronteras{k};
+P = [P(:,2), P(:,1)];
+P(end,:) = [];
+
+nEsquinas = contar_esquinas(P);
+```
+
+Se recupera el contorno de cada objeto. Como MATLAB entrega las coordenadas en formato `[fila, columna]`, se intercambian para trabajar con `[x, y]`. También se elimina el último punto porque repite el primero al cerrar el contorno.
+
+Posteriormente, `contar_esquinas()` determina cuántos vértices tiene la figura.
+
+### Características geométricas
+
+```matlab
+circ = 4*pi*props(k).Area / props(k).Perimeter^2;
+
+relAspecto = props(k).MajorAxisLength / props(k).MinorAxisLength;
+```
+
+Se calculan dos características adicionales:
+
+- **Circularidad (`circ`):** mide qué tan parecida es una figura a un círculo. Un valor cercano a 1 indica una forma circular; valores menores indican formas más alargadas o con esquinas.
+- **Relación de aspecto (`relAspecto`):** divide el eje mayor entre el menor. Si el resultado es cercano a 1, la figura tiene dimensiones similares; si es mayor, presenta una forma más alargada.
+
+
+
+```matlab
+if nEsquinas == 4
+    if relAspecto < 1.15
+        nombre = 'Cuadrado';
+    else
+        nombre = 'Rectangulo';
+
+    end
+
+elseif nEsquinas == 5
+    nombre = 'Pentagono';
+
+elseif nEsquinas >= 6 && circ > 0.80 && props(k).Solidity > 0.9
+    nombre = 'Circulo';
+
+elseif nEsquinas >= 1 && nEsquinas <= 2 && ...
+       props(k).Extent > 0.86 && props(k).Extent < 0.95 && ...
+       props(k).Solidity > 0.95
+    nombre = 'Figura D';
+
+else
+    nombre = 'Desconocida';
+end
+```
+
+La clasificación se realiza mediante condiciones `if/elseif`, combinando el número de esquinas con las características geométricas.
+
+Las condiciones se establecen de la siguiente manera:
+
+
+- **Cuadrado:** tiene 4 esquinas y una relación de aspecto menor a 1.15, indicando que sus lados tienen dimensiones similares.
+- **Rectángulo:** tiene 4 esquinas, pero una relación de aspecto mayor o igual a 1.15.
+- **Pentágono:** se identifica por tener 5 esquinas.
+- **Círculo:** presenta 6 o más esquinas aproximadas debido a la discretización del contorno, circularidad superior a 0.80 y solidez mayor a 0.9.
+
+**Figura D:** se clasifica mediante reglas específicas que determinamos nosotros ya que fue una figura que concideramos facil para el griper y que sigue siendo bastante identificable, la demoninamos figura D por su parecido a aesta. su contorno no necesariamente conserva todas sus esquinas después de la simplificación. Por su geometría particular, puede presentar entre 1 y 2 esquinas detectadas. Por eso no basta con contar vértices: se utilizan también `Extent` y `Solidity` para reconocerla. Sin embargo en los resultados nos daremos cuenta que no detecta muy bien esta figura, por lo queen eel segundo test tendremos que mejorar las reglas especificas que la detectan.
+
+- `Extent > 0.86 && Extent < 0.95`: establece que la figura ocupa entre el 86 % y el 95 % del rectángulo que la contiene. Este intervalo funciona como una característica geométrica particular de la Figura D.
+- `Solidity > 0.95`: indica que la figura ocupa más del 95 % del área de su envolvente convexa, por lo que tiene un contorno compacto y con pocas concavidades.
+
+
+```matlab
+plot(P(:,1), P(:,2), 'g', 'LineWidth', 2);
+
+c = props(k).Centroid;
+
+text(c(1), c(2), nombre, 'Color', 'r', ...
+    'FontSize', 12, 'FontWeight', 'bold', ...
+    'HorizontalAlignment', 'center');
+```
+
+Finalmente, se dibuja el contorno de cada figura en color verde y se coloca su clasificación en rojo, utilizando el centroide como punto de referencia. También se imprimen las características geométricas en la consola para verificar los resultados.
+
+## Funciones auxiliares: simplificación del contorno
+
+### `contar_esquinas(P)`
+
+Esta función utiliza el algoritmo **Douglas-Peucker** para reducir la cantidad de puntos del contorno y conservar únicamente los que representan cambios importantes en su dirección.
+
+```matlab
+perim = sum(vecnorm(diff([P; P(1,:)]), 2, 2));
+tol = 0.025 * perim;
+```
+
+Primero calcula el perímetro y establece una tolerancia equivalente al 2.5 % de este. Después divide el contorno cerrado en dos curvas para poder aplicar la simplificación.
+
+```matlab
+k1 = douglas_peucker(curva1, tol);
+k2 = douglas_peucker(curva2, tol);
+
+n = sum(k1) + sum(k2) - 2;
+```
+
+Se cuentan los puntos importantes conservados en ambas curvas, restando los dos puntos compartidos para evitar contarlos doble.
+
+### `douglas_peucker(P, tol)`
+
+Implementa el algoritmo de simplificación recursiva:
+
+1. Conserva el primer y último punto del contorno.
+2. Calcula la distancia perpendicular de los demás puntos a la línea que une los extremos.
+3. Busca el punto con mayor distancia.
+4. Si supera la tolerancia, divide la curva en dos y repite el procedimiento.
+5. Si no supera la tolerancia, descarta los puntos intermedios.
+
+De esta manera se eliminan pequeñas irregularidades del contorno y se conservan sus vértices principales, facilitando la identificación de las figuras geométricas.
 
 ## Anexos
 
