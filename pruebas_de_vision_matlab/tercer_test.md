@@ -47,7 +47,7 @@ Algo que ahora tendremos que tener en cuenta para la elección de colores en nue
 
 
 
-## 4. Ajustes en el reconocimiento de colores
+## 2. Ajustes en el reconocimiento de colores
 
 Se realizaron dos pequeños cambios en la función `nombre_color()`.
 
@@ -57,7 +57,7 @@ El resto de los intervalos HSV se mantiene igual que en la segunda prueba.
 
 Aunque la mayoria de colores se eliminaran en el código final tenemos esta variedad para que a la hora de hacer pruebas veamos que colores tienen mejores resultados
 
-## 5. Resultados
+## 3. Resultados
 Aqui veremos las imagenes originales y su resutado despues de ser procesadas con una conclusion sobre las mejoras que deben realizarce.
 
 <table>
@@ -126,7 +126,7 @@ Aqui veremos las imagenes originales y su resutado despues de ser procesadas con
   </tr>
 </table>
 
-## 6. Conclusiones
+## 4. Conclusiones
 
 Obserbamos que ya detecta correctamente las figuras en un tablero, las cosas que debemos conciderar para ajustarlo en un ambiente real es que nuestro tablero no es negro con blanco es negro con naranja, y auqnue podemos ajustar el parametro para que ignore el negro y el naranja tambien podemos contemplar la posibilidad de usar otro tablero, otra observacion seria que actualmente todo lo que no es negro o blanco lo toma como figura es decir aun si el fondo es morado lo tomara como objeto.
 
