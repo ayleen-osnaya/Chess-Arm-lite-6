@@ -338,10 +338,23 @@ Aqui veremos las imagenes originales y su resutado despues de ser procesadas con
   </tr>
 </table>
 
+<table>
+  <tr>
+    <th>Imagen original</th>
+    <th>Imagen procesada</th>
+  </tr>
+  <tr>
+    <td><img src="images/formas9.png" width="400" height="400" style="object-fit: contain;"></td>
+    <td><img src="images/formas9_procesada2.png" width="400" height="400" style="object-fit: contain;"></td>
+  </tr>
+</table>
+
 
 ## 8. Conclusiones
 
-Lo que pudimos observar de esta nueva versión,es que imagenes limpias o hechas en computadora no tiene ningun error, detecta bien la forma y los colores sin errores, pero al pasarlo a un ambiente real, la situacion cambia, ya no detecta las figuras ni los colores. Lo que se planea hacer es usar deteccion de caracteristicas con base a bordes en imagen, sera muy util por que a la hora de agregar camara no se hara una gran modificación de código.
+En esta nueva versión observamos que el programa reconoce correctamente las formas y los colores en imágenes limpias o generadas por computadora. Sin embargo, al probarlo en un entorno real, el desempeño cambia: deja de identificar las figuras y sus colores. Para mejorar el reconocimiento, planeamos utilizar características basadas en los bordes de las imágenes. Este enfoque también facilitaría la integración de una cámara, pues requeriría menos modificaciones en el código.
+
+Además, notamos que, incluso con una imagen limpia, el programa no logra reconocer correctamente las figuras cuando estas aparecen sobre un tablero de ajedrez. Una posible solución sería ignorar los colores blanco y negro del tablero y limitar el análisis al interior de cada casilla. 
 
 ## Anexos
 
