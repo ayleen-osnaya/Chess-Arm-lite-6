@@ -23,7 +23,7 @@ Pipeline:
 
 
 ## Explicación del código 
-El código completo se encuentra en Anexos de este reporte
+El código completo se encuentra en [Anexos](#Anexos) de este reporte 
 
 ```Matlab
 function detectar_formas(nombreImagen)
