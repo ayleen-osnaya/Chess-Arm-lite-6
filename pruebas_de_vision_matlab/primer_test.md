@@ -332,6 +332,9 @@ Aqui veremos las imagenes originales y su resutado despues de ser procesadas con
   </tr>
 </table>
 
+## Conclusiones
+
+A partir de los resultados obtenidos, concluimos que completar el ajedrez añadiendo más figuras podría complicar su reconocimiento visual. Por ello, simplificaremos el diseño utilizando las mismas figuras y distinguiendo las piezas por su color. Además, procuraremos que cada figura tenga una cantidad distinta de vértices, de modo que esta característica también contribuya a su identificación. Como la cámara observará el tablero desde arriba, esperamos que la distorsión de las figuras no represente un problema importante.
 
 
 ## Anexos
