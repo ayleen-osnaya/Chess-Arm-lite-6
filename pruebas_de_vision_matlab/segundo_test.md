@@ -256,7 +256,7 @@ Aqui veremos las imagenes originales y su resutado despues de ser procesadas con
   </tr>
   <tr>
     <td><img src="images/formas.png" width="400" height="400" style="object-fit: contain;"></td>
-    <td><img src="images/formas_procesada.png" width="400" height="400" style="object-fit: contain;"></td>
+    <td><img src="images/formas_procesada2.png" width="400" height="400" style="object-fit: contain;"></td>
   </tr>
 </table>
 
@@ -267,7 +267,7 @@ Aqui veremos las imagenes originales y su resutado despues de ser procesadas con
   </tr>
   <tr>
     <td><img src="images/formas2.png" width="400" height="400" style="object-fit: contain;"></td>
-    <td><img src="images/formas2_procesada.png" width="400" height="400" style="object-fit: contain;"></td>
+    <td><img src="images/formas2_procesada2.png" width="400" height="400" style="object-fit: contain;"></td>
   </tr>
 </table>
 
@@ -278,10 +278,65 @@ Aqui veremos las imagenes originales y su resutado despues de ser procesadas con
   </tr>
   <tr>
     <td><img src="images/formas3.png" width="400" height="400" style="object-fit: contain;"></td>
-    <td><img src="images/formas3_procesada.png" width="400" height="400" style="object-fit: contain;"></td>
+    <td><img src="images/formas3_procesada2.png" width="400" height="400" style="object-fit: contain;"></td>
   </tr>
 </table>
 
+
+<table>
+  <tr>
+    <th>Imagen original</th>
+    <th>Imagen procesada</th>
+  </tr>
+  <tr>
+    <td><img src="images/formas4.png" width="400" height="400" style="object-fit: contain;"></td>
+    <td><img src="images/formas4_procesada2.png" width="400" height="400" style="object-fit: contain;"></td>
+  </tr>
+</table>
+
+<table>
+  <tr>
+    <th>Imagen original</th>
+    <th>Imagen procesada</th>
+  </tr>
+  <tr>
+    <td><img src="images/formas5.png" width="400" height="400" style="object-fit: contain;"></td>
+    <td><img src="images/formas5_procesada2.png" width="400" height="400" style="object-fit: contain;"></td>
+  </tr>
+</table>
+
+<table>
+  <tr>
+    <th>Imagen original</th>
+    <th>Imagen procesada</th>
+  </tr>
+  <tr>
+    <td><img src="images/formas6.png" width="400" height="400" style="object-fit: contain;"></td>
+    <td><img src="images/formas6_procesada2.png" width="400" height="400" style="object-fit: contain;"></td>
+  </tr>
+</table>
+
+<table>
+  <tr>
+    <th>Imagen original</th>
+    <th>Imagen procesada</th>
+  </tr>
+  <tr>
+    <td><img src="images/formas7.png" width="400" height="400" style="object-fit: contain;"></td>
+    <td><img src="images/formas7_procesada2.png" width="400" height="400" style="object-fit: contain;"></td>
+  </tr>
+</table>
+
+<table>
+  <tr>
+    <th>Imagen original</th>
+    <th>Imagen procesada</th>
+  </tr>
+  <tr>
+    <td><img src="images/formas8.png" width="400" height="400" style="object-fit: contain;"></td>
+    <td><img src="images/formas8_procesada2.png" width="400" height="400" style="object-fit: contain;"></td>
+  </tr>
+</table>
 
 
 ## 8. Conclusiones
